@@ -58,7 +58,7 @@ module DE10_LITE_Golden_Top(
 
 	//////////// SEG7: 3.3-V LVTTL //////////
 `ifdef ENABLE_HEX0
-	output reg		  [7:0]		HEX0,
+	output		     [7:0]		HEX0,
 `endif
 `ifdef ENABLE_HEX1
 	output		     [7:0]		HEX1,
@@ -88,7 +88,8 @@ module DE10_LITE_Golden_Top(
 
 	//////////// SW: 3.3-V LVTTL //////////
 `ifdef ENABLE_SW
-	input 		     [9:0]		SW,
+	input 		     [9:0]		SW, 
+	
 `endif
 
 	//////////// VGA: 3.3-V LVTTL //////////
@@ -121,37 +122,40 @@ module DE10_LITE_Golden_Top(
 `endif
 );
 
-always@*
-	case(SW[3:0])
-		4'b0000: HEX0 = 7'b1000000; // 0
-      4'b0001: HEX0 = 7'b1111001; // 1
-		4'b0010: HEX0 = 7'b0100100; // 2
-		4'b0011: HEX0 = 7'b0110000; // 3
-		4'b0100: HEX0 = 7'b0011001; // 4
-		4'b0101: HEX0 = 7'b0010010; // 5
-		4'b0110: HEX0 = 7'b0000010; // 6
-		4'b0111: HEX0 = 7'b1111000; // 7
-		4'b1000: HEX0 = 7'b0000000; // 8
-		4'b1001: HEX0 = 7'b0010000; // 9
-		4'b1010: HEX0 = 7'b0001000; // A
-		4'b1011: HEX0 = 7'b0000011; // b
-		4'b1100: HEX0 = 7'b1000110; // C
-		4'b1101: HEX0 = 7'b0100001; // d
-		4'b1110: HEX0 = 7'b0000110; // E
-		4'b1111: HEX0 = 7'b0001110; // F
-	endcase
+
 
 //=======================================================
 //  REG/WIRE declarations
 //=======================================================
 
-
+// guardar o resultado
+reg [3:0] final_result; 
+wire [3:0] SW_A  = SW[3:0];   // A
+wire [3:0] SW_B  = SW[7:4];   // B
+wire [1:0] SW_OP = SW[9:8];   // Operação
 
 
 //=======================================================
 //  Structural coding
 //=======================================================
 
+// switch case do operador
+always @(*) begin
+        case (SW_OP)
+            2'b00: final_result = SW_A + SW_B; // Soma
+            2'b01: final_result = SW_A & SW_B; // AND lógico
+            2'b10: final_result = SW_A | SW_B; // OR lógico
+            2'b11: final_result = SW_A ^ SW_B; // XOR lógico
+            default: final_result = 4'b0000;
+        endcase
+		end
 
-
+// guarda o resultado num reg
+assign LEDR = final_result;
+// chama a funcao 
+dec_to_7seg u_hex (
+     .result(final_result),
+     .display(HEX0)
+);
+	 
 endmodule

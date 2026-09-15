@@ -1,0 +1,5 @@
+module dec_to_7seg (
+	input [3:0] result,
+	output reg [6:0] display,
+
+);
