@@ -1,0 +1,23 @@
+-- Programa: soma de dez numeros e divisao por 10 (media aritmetica)
+-- bits 11..8 = operacao da ALU (0010 soma, 0101 divisao), bits 7..0 = valor de B
+
+WIDTH=12;
+DEPTH=32;
+
+ADDRESS_RADIX=UNS;
+DATA_RADIX=BIN;
+
+CONTENT BEGIN
+	0  : 001000000001;
+	1  : 001000000010;
+	2  : 001000000011;
+	3  : 001000000100;
+	4  : 001000000101;
+	5  : 001000000110;
+	6  : 001000000111;
+	7  : 001000001000;
+	8  : 001000001001;
+	9  : 001000001111;
+	10 : 010100001010;
+	[11..31] : 000000000000;
+END;
