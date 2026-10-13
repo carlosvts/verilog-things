@@ -4,6 +4,9 @@ Processador de 4 bits da Figura 1: RegB carrega SW[3:0] ao pressionar KEY[0], Re
 carrega o resultado da ALU ao soltar. KEY[1] é o reset, SW[9:6] é a operação, HEX0 = RegA, HEX1 = RegB,
 LEDR[1] = Ovr, LEDR[0] = Zero.
 
+Os LEDs só mostram o Ovr/Zero da operação atual enquanto KEY[0] está pressionado: ao soltar, o RegA muda,
+a ALU recalcula e eles passam a mostrar a conta seguinte.
+
 - `DE10_LITE_Golden_Top.v`: ligações da Figura 1.
 - `Register.v`, `ALU.v`, `SEG7_LUT.v`: arquivos do professor, sem alteração.
 - `acumulador_tb.v`: testbench.

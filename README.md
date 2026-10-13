@@ -14,7 +14,8 @@ Atividades de GCC260 - Laboratório de Circuitos Digitais (UFLA), feitas em Veri
 
 ## O que falta testar no Quartus e no ModelSim
 
-As quatro últimas pastas foram escritas sem Quartus nem ModelSim: nada foi compilado, simulado ou gravado na placa.
+As quatro últimas pastas foram escritas sem Quartus nem ModelSim: nada foi compilado no Quartus nem gravado na placa.
+Os testbenches já passaram no Icarus Verilog (o de `acumulador_rom/` com um modelo simples de ROM no lugar do `rom.v` do IP Catalog).
 Os `.qsf` de `contador_p9/`, `acumulador/` e `acumulador_rom/` foram escritos à mão a partir do `aula_0109.qsf`.
 Os testbenches não fazem parte dos `.qsf`; os valores esperados estão nos comentários de cada um.
 
@@ -55,7 +56,9 @@ Quartus (`PraticaAcumulador.qpf`):
 - [ ] RTL Viewer: conferir com a Figura 1 do PDF.
 - [ ] Na placa: valor em SW[3:0], operação em SW[9:6]; ao pressionar KEY[0] o valor aparece em HEX1 e ao soltar o resultado aparece em HEX0.
 - [ ] Na placa: testar soma (0010), subtração (0110), AND (0000), OR (0001), menor que (0111) e NOR (1100).
-- [ ] Na placa: LEDR[1] acende no estouro, LEDR[0] acende com resultado zero e KEY[1] zera os dois displays.
+- [ ] Na placa: com KEY[0] pressionado, LEDR[1] acende no estouro e LEDR[0] acende com resultado zero.
+      Ao soltar, o RegA muda e a ALU recalcula, então os LEDs passam a mostrar a conta seguinte.
+- [ ] Na placa: KEY[1] zera os dois displays.
 
 ModelSim (`acumulador_tb.v`):
 
